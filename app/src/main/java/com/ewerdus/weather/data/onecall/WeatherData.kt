@@ -2,8 +2,8 @@ package com.ewerdus.weather.data.onecall
 
 data class WeatherData(
     val current: Current,
-    val daily: List<Daily>,
-    val hourly: List<Hourly>,
+    val daily: MutableList<Daily>,
+    val hourly: MutableList<Hourly>,
     val lat: Double,
     val lon: Double,
     val minutely: List<Minutely>,

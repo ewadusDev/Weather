@@ -112,6 +112,7 @@
                 app:layout_constraintTop_toTopOf="@id/bg_forecast_hourly" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_hourly"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_margin="16dp"
@@ -142,6 +143,7 @@
                 app:layout_constraintTop_toTopOf="@id/bg_forecast_7days" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerview_sevenDays"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_margin="16dp"
