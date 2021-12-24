@@ -23,11 +23,12 @@ class HourlyAdapter(private val hourlyList: MutableList<Hourly>):RecyclerView.Ad
     }
 
     override fun onBindViewHolder(holder: HourlyViewHolder, position: Int) {
-        val formatter = SimpleDateFormat("k:mm")
+        val timeFormatter = SimpleDateFormat("k:mm")
+        val tempFormatted = String.format("%.0f", hourlyList[position].temp)
         val imgUrl =  "https://openweathermap.org/img/wn/" + hourlyList[position].weather[0].icon + "@2x.png"
         holder.itemView.apply {
-            tv_temp.text = hourlyList[position].temp.toString()
-            tv_time.text = formatter.format(hourlyList[position].dt * 1000L)
+            tv_temp.text = "$tempFormatted°"
+            tv_time.text = timeFormatter.format(hourlyList[position].dt * 1000L)
             Glide.with(this).load(imgUrl).into(img_view)
         }
     }

@@ -2,6 +2,7 @@ package com.ewerdus.weather.ui
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,10 +15,12 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ewerdus.weather.R
 import com.ewerdus.weather.adapter.HourlyAdapter
 import com.ewerdus.weather.adapter.SevenDaysAdapter
 import com.ewerdus.weather.data.onecall.Daily
 import com.ewerdus.weather.data.onecall.Hourly
+import com.ewerdus.weather.data.onecall.WeatherData
 import com.ewerdus.weather.databinding.FragmentWeatherBinding
 import com.ewerdus.weather.network.WeatherAPIClient
 import com.ewerdus.weather.repo.WeatherRepository
@@ -68,11 +71,15 @@ class WeatherFragment : Fragment() {
 
         weatherViewModel.weatherCurrentResponse.observe(viewLifecycleOwner, Observer {
             val tempFormatted = String.format("%.0f", it.current.temp)
-            binding.tvTempCurrent.text = "$tempFormatted°C"
+            binding.tvTempCurrent.text = "$tempFormatted°c"
             val imgFormatted =
                 "https://openweathermap.org/img/wn/${it.current.weather[0].icon}@2x.png"
             Glide.with(this).load(imgFormatted).into(binding.imgWeatherCurrent)
             binding.tvImgDes.text = it.current.weather[0].description
+
+            setImgBackground(it)
+
+
         })
 
         weatherViewModel.cityResponse.observe(viewLifecycleOwner, Observer {
@@ -81,31 +88,90 @@ class WeatherFragment : Fragment() {
             val tempLowFormatted = String.format("%.0f", it.main.temp_min)
             binding.tvHighTempCurrent.text = "H: $tempHighFormatted°"
             binding.tvLowTempCurrent.text = "L: $tempLowFormatted°"
-
         })
 
         weatherViewModel.weatherCurrentResponseErrorMsg.observe(viewLifecycleOwner, Observer {
             Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_LONG).show()
         })
 
-
-
         return binding.root
+    }
+
+    private fun setImgBackground(responseWeather: WeatherData) {
+        when {
+            responseWeather.current.weather[0].icon == "01d" -> binding.root.setBackgroundResource(
+                R.drawable.clear_sky_day
+            )
+            responseWeather.current.weather[0].icon == "01n" -> binding.root.setBackgroundResource(
+                R.drawable.clear_sky_night
+            )
+            responseWeather.current.weather[0].icon == "02d" -> binding.root.setBackgroundResource(
+                R.drawable.few_clouds_day
+            )
+            responseWeather.current.weather[0].icon == "02n" -> binding.root.setBackgroundResource(
+                R.drawable.few_clouds_night
+            )
+            responseWeather.current.weather[0].icon == "03d" -> binding.root.setBackgroundResource(
+                R.drawable.scattered_clouds_day
+            )
+            responseWeather.current.weather[0].icon == "03n" -> binding.root.setBackgroundResource(
+                R.drawable.scattered_clouds_night
+            )
+            responseWeather.current.weather[0].icon == "04d" -> binding.root.setBackgroundResource(
+                R.drawable.broken_clouds_day
+            )
+            responseWeather.current.weather[0].icon == "04n" -> binding.root.setBackgroundResource(
+                R.drawable.broken_clouds_night
+            )
+            responseWeather.current.weather[0].icon == "09d" -> binding.root.setBackgroundResource(
+                R.drawable.shower_rain_day
+            )
+            responseWeather.current.weather[0].icon == "09n" -> binding.root.setBackgroundResource(
+                R.drawable.shower_rain_night
+            )
+            responseWeather.current.weather[0].icon == "10d" -> binding.root.setBackgroundResource(
+                R.drawable.rain_day
+            )
+            responseWeather.current.weather[0].icon == "10n" -> binding.root.setBackgroundResource(
+                R.drawable.rain_night
+            )
+            responseWeather.current.weather[0].icon == "11d" -> binding.root.setBackgroundResource(
+                R.drawable.thunderstorm_day
+            )
+            responseWeather.current.weather[0].icon == "11n" -> binding.root.setBackgroundResource(
+                R.drawable.thunderstorm_night
+            )
+            responseWeather.current.weather[0].icon == "13d" -> binding.root.setBackgroundResource(
+                R.drawable.snow_day
+            )
+            responseWeather.current.weather[0].icon == "13n" -> binding.root.setBackgroundResource(
+                R.drawable.snow_night
+            )
+            responseWeather.current.weather[0].icon == "50d" -> binding.root.setBackgroundResource(
+                R.drawable.mist_day
+            )
+            responseWeather.current.weather[0].icon == "50n" -> binding.root.setBackgroundResource(
+                R.drawable.mist_night
+            )
+            else -> binding.root.setBackgroundColor(Color.GRAY)
+        }
     }
 
     private fun setupHourlyRecyclerView(hourlyList: MutableList<Hourly>) {
         hourlyAdapter = HourlyAdapter(hourlyList)
         binding.recyclerviewHourly.apply {
-            this.layoutManager = LinearLayoutManager(requireContext(),RecyclerView.HORIZONTAL,false)
+            this.layoutManager =
+                LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
             this.adapter = hourlyAdapter
         }
 
     }
 
-    private fun  setupForcastRecyclerView(sevenDaysList: MutableList<Daily>,) {
+    private fun setupForcastRecyclerView(sevenDaysList: MutableList<Daily>) {
         sevenDaysAdapter = SevenDaysAdapter(sevenDaysList)
         binding.recyclerviewSevenDays.apply {
-            this.layoutManager = LinearLayoutManager(requireContext(),RecyclerView.HORIZONTAL,false)
+            this.layoutManager =
+                LinearLayoutManager(requireContext(), RecyclerView.HORIZONTAL, false)
             adapter = sevenDaysAdapter
         }
 
@@ -126,7 +192,7 @@ class WeatherFragment : Fragment() {
             weatherViewModel.getWeatherCurrent(it.latitude.toString(), it.longitude.toString())
             weatherViewModel.getCityName(it.latitude.toString(), it.longitude.toString())
             weatherViewModel.getSevenDaysCurrent(it.latitude.toString(), it.longitude.toString())
-            weatherViewModel.getHourlyWeather(it.latitude.toString(),it.longitude.toString())
+            weatherViewModel.getHourlyWeather(it.latitude.toString(), it.longitude.toString())
 
         }
     }
