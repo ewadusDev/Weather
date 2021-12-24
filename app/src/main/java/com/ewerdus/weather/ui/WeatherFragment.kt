@@ -60,7 +60,7 @@ class WeatherFragment : Fragment() {
         currentLocation()
 
         weatherViewModel.sevenDaysResponse.observe(viewLifecycleOwner, Observer {
-            setupForcastRecyclerView(it)
+            setupForecastRecyclerView(it)
         })
 
         weatherViewModel.hourlyResponse.observe(viewLifecycleOwner, Observer {
@@ -98,59 +98,59 @@ class WeatherFragment : Fragment() {
     }
 
     private fun setImgBackground(responseWeather: WeatherData) {
-        when {
-            responseWeather.current.weather[0].icon == "01d" -> binding.root.setBackgroundResource(
+        when (responseWeather.current.weather[0].icon) {
+            "01d" -> binding.root.setBackgroundResource(
                 R.drawable.clear_sky_day
             )
-            responseWeather.current.weather[0].icon == "01n" -> binding.root.setBackgroundResource(
+            "01n" -> binding.root.setBackgroundResource(
                 R.drawable.clear_sky_night
             )
-            responseWeather.current.weather[0].icon == "02d" -> binding.root.setBackgroundResource(
+            "02d" -> binding.root.setBackgroundResource(
                 R.drawable.few_clouds_day
             )
-            responseWeather.current.weather[0].icon == "02n" -> binding.root.setBackgroundResource(
+            "02n" -> binding.root.setBackgroundResource(
                 R.drawable.few_clouds_night
             )
-            responseWeather.current.weather[0].icon == "03d" -> binding.root.setBackgroundResource(
+            "03d" -> binding.root.setBackgroundResource(
                 R.drawable.scattered_clouds_day
             )
-            responseWeather.current.weather[0].icon == "03n" -> binding.root.setBackgroundResource(
+            "03n" -> binding.root.setBackgroundResource(
                 R.drawable.scattered_clouds_night
             )
-            responseWeather.current.weather[0].icon == "04d" -> binding.root.setBackgroundResource(
+            "04d" -> binding.root.setBackgroundResource(
                 R.drawable.broken_clouds_day
             )
-            responseWeather.current.weather[0].icon == "04n" -> binding.root.setBackgroundResource(
+            "04n" -> binding.root.setBackgroundResource(
                 R.drawable.broken_clouds_night
             )
-            responseWeather.current.weather[0].icon == "09d" -> binding.root.setBackgroundResource(
+            "09d" -> binding.root.setBackgroundResource(
                 R.drawable.shower_rain_day
             )
-            responseWeather.current.weather[0].icon == "09n" -> binding.root.setBackgroundResource(
+            "09n" -> binding.root.setBackgroundResource(
                 R.drawable.shower_rain_night
             )
-            responseWeather.current.weather[0].icon == "10d" -> binding.root.setBackgroundResource(
+            "10d" -> binding.root.setBackgroundResource(
                 R.drawable.rain_day
             )
-            responseWeather.current.weather[0].icon == "10n" -> binding.root.setBackgroundResource(
+            "10n" -> binding.root.setBackgroundResource(
                 R.drawable.rain_night
             )
-            responseWeather.current.weather[0].icon == "11d" -> binding.root.setBackgroundResource(
+            "11d" -> binding.root.setBackgroundResource(
                 R.drawable.thunderstorm_day
             )
-            responseWeather.current.weather[0].icon == "11n" -> binding.root.setBackgroundResource(
+            "11n" -> binding.root.setBackgroundResource(
                 R.drawable.thunderstorm_night
             )
-            responseWeather.current.weather[0].icon == "13d" -> binding.root.setBackgroundResource(
+            "13d" -> binding.root.setBackgroundResource(
                 R.drawable.snow_day
             )
-            responseWeather.current.weather[0].icon == "13n" -> binding.root.setBackgroundResource(
+            "13n" -> binding.root.setBackgroundResource(
                 R.drawable.snow_night
             )
-            responseWeather.current.weather[0].icon == "50d" -> binding.root.setBackgroundResource(
+            "50d" -> binding.root.setBackgroundResource(
                 R.drawable.mist_day
             )
-            responseWeather.current.weather[0].icon == "50n" -> binding.root.setBackgroundResource(
+            "50n" -> binding.root.setBackgroundResource(
                 R.drawable.mist_night
             )
             else -> binding.root.setBackgroundColor(Color.GRAY)
@@ -167,7 +167,7 @@ class WeatherFragment : Fragment() {
 
     }
 
-    private fun setupForcastRecyclerView(sevenDaysList: MutableList<Daily>) {
+    private fun setupForecastRecyclerView(sevenDaysList: MutableList<Daily>) {
         sevenDaysAdapter = SevenDaysAdapter(sevenDaysList)
         binding.recyclerviewSevenDays.apply {
             this.layoutManager =
