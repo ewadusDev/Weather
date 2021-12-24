@@ -10,7 +10,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#41515151">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,6 +33,7 @@
                     android:layout_height="wrap_content"
                     android:text="Loading...."
                     android:textSize="24sp"
+                    android:textColor="#E6E6E6"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +44,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="28dp"
                     android:text="Loading...."
-                    android:textSize="60sp"
+                    android:textStyle="bold"
+                    android:textColor="#E6E6E6"
+                    android:textSize="75sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_city_name" />
@@ -54,6 +58,7 @@
                     android:layout_marginTop="28dp"
                     android:text="Loading...."
                     android:textSize="24sp"
+                    android:textColor="#E6E6E6"
                     app:layout_constraintEnd_toStartOf="@id/tv_low_temp_current"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_temp_current" />
@@ -65,6 +70,7 @@
                     android:layout_marginTop="28dp"
                     android:text="Loading...."
                     android:textSize="24sp"
+                    android:textColor="#E6E6E6"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/tv_high_temp_current"
                     app:layout_constraintTop_toBottomOf="@id/tv_temp_current" />
@@ -85,6 +91,8 @@
                     android:layout_marginTop="16dp"
                     android:text="Loading...."
                     android:textSize="24sp"
+                    android:textStyle="normal"
+                    android:textColor="#E6E6E6"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/img_weather_current" />
